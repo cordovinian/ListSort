@@ -6,28 +6,28 @@ Take a list of random numbers, de-deplicate, and sort it.
 
 Requires: [dotnet sdk](https://dotnet.microsoft.com/en-us/download)
 
-Execute `dotnet run .` in project root folder.
+Execute `dotnet run --project .\ListSortingDemo\ListSortingDemo.csproj` in project root folder.
 
 ## Sample Output
 
 ```
 Random list:
-48, 48, -26, 41, 1, -2, -1, 49, 3, 3, 40, 42, 42
+{ -11, 11, 23, 46, 25, 27, 27, -16, -1, 18 }
 
 Solution #1 - Sort and de-duplicate using the List type built-in methods
--26, -2, -1, 1, 3, 40, 41, 42, 48, 49
-Time: 1.241ms
+{ -16, -11, -1, 11, 18, 23, 25, 27, 46 }
+Time: 1.127ms
 
 Solution #2 - Use the datatype SortedSet to order and de-duplicate
--26, -2, -1, 1, 3, 40, 41, 42, 48, 49
-Time: 0.8934ms
+{ -16, -11, -1, 11, 18, 23, 25, 27, 46 }
+Total Time: 0.807ms
 
 Solution #3 - Use hash to de-duplicate and Quick sort to order
 Use a HashSet to de-duplicate:
-48, -26, 41, 1, -2, -1, 49, 3, 40, 42
-Time: 0.5481ms
+{ -11, 11, 23, 46, 25, 27, -16, -1, 18 }
+Time: 0.786ms
 Use quick sort to order:
--26, -2, -1, 1, 3, 40, 41, 42, 48, 49
-Time: 0.3488ms
-Combined Time: 0.8969ms
+{ -16, -11, -1, 11, 18, 23, 25, 27, 46 }
+Time: 0.280ms
+Total Time: 1.067ms
 ```
