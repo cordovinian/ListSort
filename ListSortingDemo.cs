@@ -8,10 +8,10 @@ internal class ListSortingDemo
         var timer = new Stopwatch();
         var sourceList = new List<int>(CreateRandomListWithDuplicates(10, -50, 50));
 
-        Console.WriteLine("Source list:");
+        Console.WriteLine("Random list:");
         Console.WriteLine(string.Join(", ", sourceList));
 
-        Console.WriteLine("Solution #1 - Sort and de-duplicate using the List type built-in methods");
+        Console.WriteLine("\nSolution #1 - Sort and de-duplicate using the List type built-in methods");
         timer.Start();
         var orderedList = sourceList.Distinct().Order();
         timer.Stop();
@@ -52,7 +52,7 @@ internal class ListSortingDemo
         Console.WriteLine("Combined Time: {0}ms", dedupeTime + sortTime);
     }
 
-    public static List<int> CreateRandomListWithDuplicates(int distinctSize, int min, int max)
+    private static List<int> CreateRandomListWithDuplicates(int distinctSize, int min, int max)
     {
         var random = new List<int>();
         var rand = new Random(DateTime.Now.Second);
@@ -69,7 +69,7 @@ internal class ListSortingDemo
 
         return random;
     }
-    public static List<int> QuickSortList(List<int> sourceList, int leftIndex, int rightIndex)
+    private static List<int> QuickSortList(List<int> sourceList, int leftIndex, int rightIndex)
     {
         var pivot = sourceList[leftIndex];
         var left = leftIndex;
