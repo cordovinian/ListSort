@@ -1,38 +1,74 @@
 ﻿using System;
+using System.Diagnostics;
 
 internal class ListSortingDemo
 {
     private static void Main(string[] args)
     {
-        var sourceList = new List<int> { -1, 4, 3, 2, 1, 1, 2, 3, 4 };
+        var timer = new Stopwatch();
+        var sourceList = new List<int>(CreateRandomListWithDuplicates(10, -50, 50));
 
         Console.WriteLine("Source list:");
         Console.WriteLine(string.Join(", ", sourceList));
 
-        Console.WriteLine("Easiest solution using LINQ built-ins:");
-        Console.WriteLine(string.Join(", ", sourceList.Distinct().Order()));
+        Console.WriteLine("Solution #1 - Sort and de-duplicate using the List type built-in methods");
+        timer.Start();
+        var orderedList = sourceList.Distinct().Order();
+        timer.Stop();
+        Console.WriteLine(string.Join(", ", orderedList));
+        Console.WriteLine("Time: {0}ms", timer.Elapsed.TotalMilliseconds);
 
-        Console.WriteLine("Use the datatype SortedSet to order and de-duplicate:");
+        Console.WriteLine("\nSolution #2 - Use the datatype SortedSet to order and de-duplicate");
         var listAsSortedSet = new SortedSet<int>();
+        timer.Restart();
         foreach (var item in sourceList)
         {
             listAsSortedSet.Add(item);
         }
+        timer.Stop();
         Console.WriteLine(string.Join(", ", listAsSortedSet));
+        Console.WriteLine("Time: {0}ms", timer.Elapsed.TotalMilliseconds);
 
+        Console.WriteLine("\nSolution #3 - Use hash to de-duplicate and Quick sort to order");
         Console.WriteLine("Use a HashSet to de-duplicate:");
         var listAsHash = new HashSet<int>();
+        timer.Restart();
         foreach (var item in sourceList)
         {
             listAsHash.Add(item);
         }
+        timer.Stop();
+        var dedupeTime = timer.Elapsed.TotalMilliseconds;
         Console.WriteLine(string.Join(", ", listAsHash));
+        Console.WriteLine("Time: {0}ms", dedupeTime);
 
         Console.WriteLine("Use quick sort to order:");
+        timer.Restart();
         List<int> result = QuickSortList(listAsHash.ToList(), 0, listAsHash.Count - 1);
+        timer.Stop();
+        var sortTime = timer.Elapsed.TotalMilliseconds;
         Console.WriteLine(string.Join(", ", result));
+        Console.WriteLine("Time: {0}ms", sortTime);
+        Console.WriteLine("Combined Time: {0}ms", dedupeTime + sortTime);
     }
 
+    public static List<int> CreateRandomListWithDuplicates(int distinctSize, int min, int max)
+    {
+        var random = new List<int>();
+        var rand = new Random(DateTime.Now.Second);
+
+        for (int counter = 0; counter < distinctSize; counter++)
+        {
+            var newNumber = rand.Next(min, max);
+            random.Add(newNumber);
+            if (newNumber % 3 == 0)
+            {
+                random.Add(newNumber);
+            }
+        }
+
+        return random;
+    }
     public static List<int> QuickSortList(List<int> sourceList, int leftIndex, int rightIndex)
     {
         var pivot = sourceList[leftIndex];
