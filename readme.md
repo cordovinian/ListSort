@@ -8,6 +8,10 @@ Requires: [dotnet sdk](https://dotnet.microsoft.com/en-us/download)
 
 Execute `dotnet run --project .\ListSortingDemo\ListSortingDemo.csproj` in project root folder.
 
+## Testing
+
+Run `dotnet test`
+
 ## Sample Output
 
 ```
